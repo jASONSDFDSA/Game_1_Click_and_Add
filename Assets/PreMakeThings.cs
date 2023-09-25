@@ -14,7 +14,6 @@ public class NewBehaviourScript : MonoBehaviour {
 
     // Entities and their states / Model
     public GameObject cube;
-    private Transform res;
     private static int count;
     private GUIStyle counterStyle;
     private List<GameObject> ress;
@@ -26,15 +25,15 @@ public class NewBehaviourScript : MonoBehaviour {
         Init();
         counterStyle = new GUIStyle();
         counterStyle.fontSize = 20;
-        counterStyle.normal.textColor = new Color(256f / 256f, 0f / 256f, 0f / 256f, 256f / 256f);
+        counterStyle.normal.textColor = new Color(0f / 256f, 256f / 256f, 256f / 256f, 256f / 256f);
     }
 
     // View to render entities / models
     // Here! you cannot modify model directly, use components/controls to do it
     void OnGUI() {
-        GUI.Label(new Rect(Screen.width/2 - 100, Screen.height/2 - 30, 300, 300), "Number of cubes: "+count.ToString(), counterStyle);
-        if (GUI.Button(new Rect(Screen.width/2, Screen.height/2, 100, 30), "Restart")) Init();
-        if (GUI.Button(new Rect(Screen.width/2 - 100, Screen.height/2, 100, 30), "Put Cube")) PutCube();
+        GUI.Label(new Rect(Screen.width/2 - 100, Screen.height - 60, 300, 300), "Number of cubes: "+count.ToString(), counterStyle);
+        if (GUI.Button(new Rect(Screen.width/2, Screen.height - 30, 100, 30), "Restart")) Init();
+        if (GUI.Button(new Rect(Screen.width/2 - 100, Screen.height - 30, 100, 30), "Put Cube")) PutCube();
     }
 
     // Components /controls
@@ -42,15 +41,19 @@ public class NewBehaviourScript : MonoBehaviour {
         count = 0;
         Debug.Log(ress.Count);
         if (ress.Count != 0)
+        {
             foreach(GameObject o in ress)
             {
                 GameObject.Destroy(o);
             }
+
+            ress.Clear();
+        }
     }
 
     void PutCube() {
         count++;
-        ress.Add(Instantiate(cube, new Vector3(Random.Range(-5f, 5f), Random.Range(2f, 10f), Random.Range(-5f, 5f)),transform.rotation));
+        ress.Add(Instantiate(cube, new Vector3(Random.Range(-10f, 10f), Random.Range(2f, 10f), Random.Range(-8f, 10f)),transform.rotation));
     }
 
 }
